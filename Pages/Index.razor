@@ -1,0 +1,107 @@
+﻿@page "/"
+@inject HttpClient Http
+
+<h1>Find your Food</h1>
+
+<p>Search for different types of food just by typing the name of an ingredient or just a single letter for example Apples or A</p>
+
+@if (data == null)
+{
+    <p><em>Loading data...</em></p>
+}
+else
+{
+    <div>
+        <label for="ingredients">Ingredient</label>
+        <input id="ingredients" @bind="ingredients" />
+        <p></p>
+    </div>
+    <div>
+        <button @onclick="Lookup">Lookup</button>
+    </div>
+    <br />
+    @if (found)
+    {
+        <div>
+            List of foods: @data.results[0].title
+        </div>
+
+    }
+    <table class="table">
+        <thead>
+            <tr>
+                <th>List</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var food in r)
+            {
+                <tr>
+                    <td>@food.title</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+
+
+
+
+
+@code {
+    private Root data;
+    private string key = "37ad2fd763574f95a0719dcc622cf03b";
+    private string ingredients;
+    private List<Result> r = new List<Result>();
+    private bool found;
+
+
+    private async Task GetFoodAsync()
+    {
+        data = await Http.GetFromJsonAsync<Root>($"https://api.spoonacular.com/recipes/complexSearch?query={ingredients}&apiKey={key}");
+        Console.WriteLine(data.results[0].title);
+        foreach (var food in data.results)
+        {
+
+
+            if (food.title != null)
+            {
+                r.Add(new Result { title = food.title });
+
+
+            }
+
+        }
+
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetFoodAsync();
+    }
+    protected async void Lookup()
+    {
+        await GetFoodAsync();
+        StateHasChanged();
+    }
+
+    // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
+    public class Result
+    {
+        public int id { get; set; }
+        public string title { get; set; }
+        public string image { get; set; }
+        public string imageType { get; set; }
+    }
+
+    public class Root
+    {
+        public List<Result> results { get; set; }
+        public int offset { get; set; }
+        public int number { get; set; }
+        public int totalResults { get; set; }
+    }
+
+}
+

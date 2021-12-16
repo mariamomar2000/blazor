@@ -1,0 +1,153 @@
+﻿@page "/converter"
+
+<h1>Measurements Converter</h1>
+<p></p>
+<p>To convert your measurements put the number you wish to convert in it's current measurement and it will automaticall convert to it's oposing measurement.</p>
+<p></p>
+<h2>Celcius (°C) to Fahrenheit (°F)</h2>
+<p></p>
+<label>Celcius</label>
+<input type="number" @bind-value="@Celcius" @bind-value:event="oninput" />
+<span>=</span>
+<input type="number" @bind-value="@Fahrenheit" @bind-value:event="oninput" />
+
+<label>Fahrenheit</label>
+
+@code {
+    double celcius = 0;
+    double fahrenheit = 32;
+
+    public double Celcius
+    {
+        get => celcius;
+        set
+        {
+            fahrenheit = (value * 9 / 5) + 32;
+            celcius = value;
+        }
+    }
+
+    public double Fahrenheit
+    {
+        get => fahrenheit;
+        set
+        {
+            celcius = (value - 32) * 5 / 9;
+            fahrenheit = value;
+        }
+    }
+}
+
+<p></p>
+
+<h2>Grams (g) to Ounces (oz)</h2>
+<p></p>
+<label>Gram(s)</label>
+<input type="number" @bind-value="@Grams" @bind-value:event="oninput" />
+<span>=</span>
+<input type="number" @bind-value="@Ounces" @bind-value:event="oninput" />
+
+<label>Ounce(s)</label>
+
+@code {
+    double grams = 1;
+    double ounces = 0.035274;
+
+    public double Grams
+    {
+        get => grams;
+        set
+        {
+            ounces = value / 28.35;
+            grams = value;
+        }
+    }
+
+    public double Ounces
+    {
+        get => ounces;
+        set
+        {
+            grams = value * 28.35;
+            ounces = value;
+        }
+    }
+}
+
+<p></p>
+
+<h2>Kilograms (kg) to Pounds (lb)</h2>
+<p></p>
+<label>Kilogram(s)</label>
+<input type="number" @bind-value="@Kilograms" @bind-value:event="oninput" />
+<span>=</span>
+<input type="number" @bind-value="@Pounds" @bind-value:event="oninput" />
+
+<label>Pound(s)</label>
+
+@code {
+    double kilograms = 1;
+    double pounds = 2.20462;
+
+    public double Kilograms
+    {
+        get => kilograms;
+        set
+        {
+            pounds = value * 2.205;
+            kilograms = value;
+        }
+    }
+
+    public double Pounds
+    {
+        get => pounds;
+        set
+        {
+            kilograms = value / 2.205;
+            pounds = value;
+        }
+    }
+}
+
+
+
+<p></p>
+
+
+
+<h2>Cups to Mililiter (ml)</h2>
+<p></p>
+<label>Cup(s)</label>
+<input type="number" @bind-value="@Cups" @bind-value:event="oninput" />
+<span>=</span>
+<input type="number" @bind-value="@Mililiter" @bind-value:event="oninput" />
+
+<label>Mililiter(s)</label>
+
+@code {
+    double cups = 1;
+    double mililiter = 236.588;
+
+    public double Cups
+    {
+        get => cups;
+        set
+        {
+            mililiter = value * 237;
+            cups = value;
+        }
+    }
+
+    public double Mililiter
+    {
+        get => mililiter;
+        set
+        {
+            cups = value / 237;
+            mililiter = value;
+        }
+    }
+}
+
+

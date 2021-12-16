@@ -1,0 +1,48 @@
+﻿@inherits LayoutComponentBase
+
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container">
+        <a class="navbar-brand" href="">Recipes</a>
+        <button class="navbar-toggler" type="button" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+            <ul class="navbar-nav" style="float:right">
+                <li class="nav-item">
+                    <NavLink class="nav-link text-dark" href="" Match="NavLinkMatch.All">
+                        <span class="oi oi-magnifying-glass" aria-hidden="true"></span> Find Recipe
+                    </NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="nav-link text-dark" href="converter">
+                        <span class="oi oi-transfer" aria-hidden="true"></span> Converter
+                    </NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="nav-link text-dark" href="about">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> About
+                    </NavLink>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    @code {
+        bool collapseNavMenu = true;
+
+        string baseMenuClass = "navbar-collapse d-sm-inline-flex flex-sm-row-reverse";
+
+        string NavMenuCssClass => baseMenuClass + (collapseNavMenu ? " collapse" : "");
+
+        void ToggleNavMenu()
+        {
+            collapseNavMenu = !collapseNavMenu;
+        }
+    }
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @Body
+        </main>
+    </div>
